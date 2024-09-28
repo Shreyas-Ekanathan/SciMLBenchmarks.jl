@@ -4,7 +4,7 @@ author: Chris Rackauckas
 ---
 
 ```julia
-using OrdinaryDiffEq, ParameterizedFunctions, Plots, ODEInterfaceDiffEq, LSODA, DiffEqDevTools, Sundials
+using OrdinaryDiffEq, ParameterizedFunctions, Plots, ODEInterfaceDiffEq, LSODA, DiffEqDevTools, Sundials, OrdinaryDiffEqFIRK
 using LinearAlgebra, StaticArrays
 
 gr() #gr(fmt=:png)
@@ -92,6 +92,7 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>RadauIIA5()),
           Dict(:alg=>ROS34PW1a()),
           Dict(:alg=>lsoda()),
+          Dict(:alg=>AdaptiveRadau()),
           ]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -119,7 +120,8 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>TRBDF2()),
           Dict(:alg=>KenCarp3()),
     # Dict(:alg=>SDIRK2()), # Removed because it's bad
-          Dict(:alg=>radau())]
+          Dict(:alg=>radau()),
+          Dict(:alg=>AdaptiveRadau())]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups;verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5))
 plot(wp)
@@ -147,6 +149,7 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>ARKODE(order=5)),
           Dict(:alg=>ARKODE()),
           Dict(:alg=>ARKODE(order=3))]
+
 names = ["Rosenbrock23" "Rosenbrock23 Static" "KenCarp5" "KenCarp4" "KenCarp4 Static" "KenCarp3" "ARKODE5" "ARKODE4" "ARKODE3"]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups;verbose=false, dense=false,
                       names=names,save_everystep=false,appxsol=test_sol,maxiters=Int(1e5))
@@ -170,8 +173,7 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>FBDF()),
           Dict(:alg=>QNDF()),
           Dict(:alg=>Exprb43()),
-          Dict(:alg=>Exprb32()),
-]
+          Dict(:alg=>Exprb32()),]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups;verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5))
 plot(wp)
@@ -199,6 +201,7 @@ setups = [
           Dict(:alg=>radau()),
           Dict(:alg=>lsoda()),
           Dict(:alg=>RadauIIA5()),
+          Dict(:alg=>AdaptiveRadau()),
 ]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups;verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5))
@@ -231,6 +234,7 @@ setups = [Dict(:alg=>GRK4A()),
           Dict(:alg=>ImplicitEulerExtrapolation()),
           Dict(:alg=>ImplicitEulerBarycentricExtrapolation()),
           Dict(:alg=>ImplicitHairerWannerExtrapolation()),
+          Dict(:alg=>AdaptiveRadau())
           ]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups;verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5))

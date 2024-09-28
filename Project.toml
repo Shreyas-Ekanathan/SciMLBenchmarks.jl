@@ -11,6 +11,8 @@ IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
 InteractiveUtils = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
 OMJulia = "0f4fe800-344e-11e9-2949-fb537ad918e1"
+OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
+OrdinaryDiffEqFIRK = "5960d6e9-dd7a-4743-88e7-cf307b64f125"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 Weave = "44d3d7a6-8a23-5bf8-98c5-b353f8df5ec9"
 

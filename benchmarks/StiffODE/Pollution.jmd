@@ -268,6 +268,7 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>radau()),
           Dict(:alg=>lsoda()),
           Dict(:alg=>RadauIIA5()),
+          Dict(:alg=>AdaptiveRadau()),
           ]
 wp = WorkPrecisionSet(prob,abstols,reltols,setups;verbose=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -295,7 +296,9 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>KenCarp3()),
           Dict(:alg=>Rodas4()),
           Dict(:alg=>lsoda()),
-          Dict(:alg=>radau())]
+          Dict(:alg=>radau()),
+          Dict(:alg=>AdaptiveRadau()),
+          ]
 wp = WorkPrecisionSet(prob,abstols,reltols,setups; verbose=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
 plot(wp)
@@ -380,7 +383,8 @@ setups = [
           Dict(:alg=>Rodas5P()),
           Dict(:alg=>rodas()),
           Dict(:alg=>radau()),
-          Dict(:alg=>lsoda())
+          Dict(:alg=>lsoda()),
+          Dict(:alg=>AdaptiveRadau()),
           ]
 wp = WorkPrecisionSet(prob,abstols,reltols,setups;verbose=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -413,6 +417,7 @@ setups = [Dict(:alg=>GRK4A()),
           Dict(:alg=>ImplicitEulerExtrapolation(min_order = 3)),
           Dict(:alg=>ImplicitEulerBarycentricExtrapolation()),
           Dict(:alg=>ImplicitHairerWannerExtrapolation()),
+          Dict(:alg=>AdaptiveRadau()),
           ]
 wp = WorkPrecisionSet(prob,abstols,reltols,setups; verbose=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -469,10 +474,11 @@ setups = [
             Dict(:alg=>ImplicitEulerBarycentricExtrapolation(min_order = 5, threading = false)),
             Dict(:alg=>ImplicitHairerWannerExtrapolation(threading = OrdinaryDiffEq.PolyesterThreads())),
             Dict(:alg=>ImplicitHairerWannerExtrapolation(threading = false)),
+            Dict(:alg=>AdaptiveRadau()),
             ]
 
 solnames = ["CVODE_BDF","KenCarp4","Rodas4","Rodas5","Rodas5P","QNDF","lsoda","radau","seulex","ImplEulerExtpl (threaded)", "ImplEulerExtpl (non-threaded)",
-            "ImplEulerBaryExtpl (threaded)","ImplEulerBaryExtpl (non-threaded)","ImplHWExtpl (threaded)","ImplHWExtpl (non-threaded)"]
+            "ImplEulerBaryExtpl (threaded)","ImplEulerBaryExtpl (non-threaded)","ImplHWExtpl (threaded)","ImplHWExtpl (non-threaded)", "Adaptive Radau"]
 
 wp = WorkPrecisionSet(prob,abstols,reltols,setups; verbose=false,
                     names = solnames,save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)

@@ -114,6 +114,7 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>RadauIIA5()),
           Dict(:alg=>ROS34PW1a()),
           Dict(:alg=>lsoda()),
+          Dict(:alg=>AdaptiveRadau())
           ]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -142,7 +143,9 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>KenCarp3()),
           Dict(:alg=>lsoda()),
     # Dict(:alg=>SDIRK2()), # Removed because it's bad
-          Dict(:alg=>radau())]
+          Dict(:alg=>radau()),
+          Dict(:alg=>AdaptiveRadau())
+]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
 plot(wp)
@@ -169,9 +172,10 @@ setups = [Dict(:alg=>Rosenbrock23()),
           Dict(:alg=>KenCarp3()),
           Dict(:alg=>ARKODE(order=5)),
           Dict(:alg=>ARKODE(nonlinear_convergence_coefficient = 1e-6)),
-          Dict(:alg=>ARKODE(nonlinear_convergence_coefficient = 1e-5,order=3))
+          Dict(:alg=>ARKODE(nonlinear_convergence_coefficient = 1e-5,order=3)),
+          Dict(:alg=>AdaptiveRadau())
           ]
-names = ["Rosenbrock23" "Rosenbrock23 Static" "KenCarp5" "KenCarp4" "KenCarp4 Static" "KenCarp3" "ARKODE5" "ARKODE4" "ARKODE3"]
+names = ["Rosenbrock23" "Rosenbrock23 Static" "KenCarp5" "KenCarp4" "KenCarp4 Static" "KenCarp3" "ARKODE5" "ARKODE4" "ARKODE3" "Adaptive Radau"]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                       names=names,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -200,6 +204,7 @@ setups = [
           Dict(:alg=>radau()),
           Dict(:alg=>RadauIIA5()),
           Dict(:alg=>lsoda()),
+          Dict(:alg=>AdaptiveRadau()),
 ]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -235,6 +240,7 @@ setups = [Dict(:alg=>GRK4A()),
           Dict(:alg=>ImplicitEulerExtrapolation()),
           Dict(:alg=>ImplicitEulerBarycentricExtrapolation()),
           Dict(:alg=>ImplicitHairerWannerExtrapolation()),
+          Dict(:alg=>AdaptiveRadau()),
           ]
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                       save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
@@ -298,10 +304,11 @@ setups = [
             Dict(:alg=>ImplicitEulerBarycentricExtrapolation(init_order = 4, threading = false)),
             Dict(:alg=>ImplicitHairerWannerExtrapolation(init_order = 5,threading = OrdinaryDiffEq.PolyesterThreads())),
             Dict(:alg=>ImplicitHairerWannerExtrapolation(init_order = 5,threading = false)),
+            Dict(:alg=>AdaptiveRadau()),
             ]
 
 solnames = ["CVODE_BDF","KenCarp4","Rodas4","Rodas4 Static","Rodas%P","Rodas5P Static","QNDF","lsoda","radau","seulex","ImplEulerExtpl (threaded)", "ImplEulerExtpl (non-threaded)",
-            "ImplEulerBaryExtpl (threaded)","ImplEulerBaryExtpl (non-threaded)","ImplHWExtpl (threaded)","ImplHWExtpl (non-threaded)"]
+            "ImplEulerBaryExtpl (threaded)","ImplEulerBaryExtpl (non-threaded)","ImplHWExtpl (threaded)","ImplHWExtpl (non-threaded)", "Adaptive Radau"]
 
 wp = WorkPrecisionSet(probs,abstols,reltols,setups; verbose=false, dense=false,
                     names = solnames,save_everystep=false,appxsol=test_sol,maxiters=Int(1e5),numruns=10)
